@@ -1,4 +1,4 @@
-package com.sparta.eurekaserver;
+package com.popjub.eurekaserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
