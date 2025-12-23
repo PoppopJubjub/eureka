@@ -37,21 +37,21 @@ jobs:
       - name: Build & Push Docker Image
         run: |
           docker build -t eureka-server:latest .
-          docker tag eureka-server:latest ${{ secrets.EUREKA_ECR_URI }}:latest
-          docker push ${{ secrets.EUREKA_ECR_URI }}:latest
+          docker tag eureka-server:latest ${{ secrets.ECR_URI }}:latest
+          docker push ${{ secrets.ECR_URI }}:latest
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.EUREKA_EC2_HOST }}
-          username: ${{ secrets.EUREKA_EC2_USER }}
-          key: ${{ secrets.EUREKA_EC2_SSH_KEY }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            docker pull ${{ secrets.EUREKA_ECR_URI }}:latest
+            docker pull ${{ secrets.ECR_URI }}:latest
             docker stop eureka-server || true
             docker rm eureka-server || true
             docker run -d \
               --name eureka-server \
               --env-file /home/ec2-user/eureka-server.env \
               -p 18080:18080 \
-              ${{ secrets.EUREKA_ECR_URI }}:latest
+              ${{ secrets.ECR_URI }}:latest
