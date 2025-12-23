@@ -1,0 +1,13 @@
+server:
+  port: 18080
+
+eureka:
+  instance:
+    hostname: ${EUREKA_HOST}
+    prefer-ip-address: true
+
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${EUREKA_HOST}:18080/eureka/
