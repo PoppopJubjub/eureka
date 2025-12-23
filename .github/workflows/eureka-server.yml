@@ -12,6 +12,9 @@ jobs:
       - name: Git repository checkout
         uses: actions/checkout@v4
 
+      - name: permission for gradlew 권한 부여
+        run: chmod +x gradlew
+
       - name: JDK 17 설치
         uses: actions/setup-java@v4
         with:
